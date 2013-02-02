@@ -1,0 +1,120 @@
+.\"
+.\" Line 6 Pod 2.3 MIDI Tool
+.\" Manual Page
+.\"
+.\" Copyright (c) 2013 Eldad Zack <eldad@fogrefinery.com>
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with this program; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
+.\"
+.TH POD6CTL 1 "February 2013" "pod6ctl - Line 6 Pod 2.3 MIDI Control Tool" "User Manuals"
+.SH NAME
+pod6ctl \- Line 6 Pod 2.3 MIDI Control Tool
+.SH SYNOPSIS
+.B pod6ctl
+[\fIcommand\fR] <\fIoptions\fR>
+.SH DESCRIPTION
+.B pod6ctl
+can be used to backup and restore bank settings for Line 6 POD 2.0 devices.
+.SH OPTIONS
+.IP -p,\ --port
+Specifies the ALSA raw MIDI port (example: hw:0).
+.br
+Required for commands that communicate with the device: \fBquery\fR, \fBsave\fR and \fBrestore\fR.
+.br
+You can use
+.B amidi -l
+(from the
+.B alsa-utils
+package) to list the available MIDI ports.
+.IP -b
+Specifies the POD bank, from 1A to 9D.
+.IP -o,\ --overwrite
+Allow overwriting of files, when used with the \fBsave\fR command.
+.IP -v,\ --verbose
+Verbose output.
+.IP -D,\ --debug
+Debugging output.
+.IP --nohello
+Hello supression (no device discovery). See "Supported Devices" section below.
+.IP -h,\ --help
+Show help text.
+.SH COMMANDS
+query
+.RS
+Query the settings of a single bank from device. Requires \fB-b\fR.
+.br
+.I Note:
+if the current bank is queried and its setting has been changed (i.e., the "\fISAVE\fR" button is blinking), this will return the settings before any changes.
+.P
+.RE
+save \fIfilename\fR
+.RS
+Save all banks to a file. Requires \fB-p\fR.
+.I Note:
+By default this command will not overwrite an existing file. Use \fB-o\fR to override this default.
+.BR
+.RE
+.P
+restore \fIfilename\fR
+.RS
+Restore all banks from a file. Requires \fB-p\fR.
+.BR
+.RE
+.P
+list \fIfilename\fR
+.RS
+List all banks stored in a file.
+.BR
+.RE
+.P
+name \fIbankname\fR
+.RS
+Set a bank name, writes to POD. Requires \fB-p\fR and \fB-b\fR.
+.RE
+.P
+attr
+.RS
+Shows available attribute. Use \fB-v\fR to display attribute ranges/switch definitions
+.RE
+.P
+set \fIattr\fR \fIvalue\fR
+.RS
+Set a value to an attribute, writes to POD. Requires \fB-p\fR and \fB-b\fR.
+.RE
+.P
+setdirect \fIattr\fR \fIvalue\fR
+.RS
+Set a DIRECT, UNTRANSLATED value to an attribute, writes to POD.
+.br
+\fBThis is for debugging purposes and otherwise NOT RECOMMENDED! Use 'set' instead!\fR Requires \fB-p\fR and \fB-b\fR.
+.RE
+.SH SUPPORTED DEVICES
+The only device currently supported is POD 2.3.
+Other versions of the POD 2.0 (or maybe even 1.0) might also work - however, before communicating with the device, a discovery is performed and matched against the version string returned by the POD 2.3.
+"Hello Supression" (\fB--nohello\fR) may be used to try out a different device version. \fICaveat emptor\fR.
+.SH BUGS
+No known issues. Please report bugs to the author.
+.SH SEE ALSO
+amidi(1)
+.SH COPYRIGHT
+Copyright \(co 2013 Eldad Zack. This software is licensed under the GNU GENERAL PUBLIC LICENSE Version 2. See COPYING for more information.
+.br
+Portions derived from ALSA source code (\fIwww.alsa-project.org\fR), in particular amidi(1) written by Clemens Ladisch <clemens@ladisch.de>.
+.br
+Line 6 POD\(tm is a trademark of Line 6, Inc. This software is not in any way endorsed by or affiliated with Line 6, Inc.
+.br
+All other names used are trademarks of their respective owners.
+.SH AUTHOR
+Eldad Zack <eldad@fogrefinery.com>

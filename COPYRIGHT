@@ -1,0 +1,12 @@
+pod6ctl -- Copyright (c) 2013 Eldad Zack.
+This software is licensed under the GNU GENERAL PUBLIC LICENSE Version 2.
+See COPYING for more information.
+
+Portions derived from ALSA source code (www.alsa-project.org),
+in particular amidi(1) written by Clemens Ladisch <clemens@ladisch.de>.
+
+Line 6 POD is a trademark of Line 6, Inc.
+This software is not in any way endorsed by or affiliated with Line 6, Inc.
+
+All other product names mentioned are the property of their respective owners.
+
